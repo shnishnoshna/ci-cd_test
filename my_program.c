@@ -5,5 +5,6 @@ int main(void){
     puts("Введите значение x:y");
     scanf("%d: %d", &x, &y);
     printf("Сумма x + y = %d\n", x + y);
+    
     return 0;
 }
