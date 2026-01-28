@@ -49,7 +49,7 @@ jobs:
           chmod 600 key
           scp -i key \
             -o StrictHostKeyChecking=no \
-            ${{ env.GOOD_TEST_NAME }}\
+            ${{ env.GOOD_TEST_NAME }} \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy/
             rm -f key
       - uses: actions/upload-artifact@v4
