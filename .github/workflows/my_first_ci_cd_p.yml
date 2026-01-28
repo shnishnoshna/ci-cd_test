@@ -43,6 +43,15 @@ jobs:
         run: |
           zip ${{ env.GOOD_TEST_NAME }} my_program.exe my_program_linux
           unzip -l ${{ env.GOOD_TEST_NAME }}
+      - name: Deploy_on_local_server
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key
+          chmod 600 key
+           scp -i key \
+            -o StrictHostKeyChecking=no \
+            ${{ env.GOOD_TEST_NAME }}\
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy/
+            rm -f key
       - uses: actions/upload-artifact@v4
         with:
          name: Complite_File
