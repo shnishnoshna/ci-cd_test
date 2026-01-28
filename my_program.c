@@ -2,11 +2,10 @@
 
 int main(void){
     int x, y;
-    puts("Введите значение x:y");
+    puts("Write: x:y");
     scanf("%d: %d", &x, &y);
-    printf("Сумма x + y = %d\n", x + y);
-    printf("fdfdf");
-
-    
+    printf("x + y = %d\n", x + y);
+    char temp;
+    scanf("Press key: %c", &temp);
     return 0;
 }
