@@ -47,7 +47,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > key
           chmod 600 key
-           scp -i key \
+          scp -i key \
             -o StrictHostKeyChecking=no \
             ${{ env.GOOD_TEST_NAME }}\
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/${{ secrets.SERVER_USER }}/deploy/
