@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI_CD_first_p_my_server
+# Controls when the workflow will run
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  on-successful-merge:
+    # Этот job запустится ТОЛЬКО если PR был смержен
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+      - name: Get_latest_tag_from_develop
+        id: get-tag
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "Latest tag on develop: $LATEST_TAG"
+          echo "tag_name=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Create_new_tag_in_main
+        run: |
+          git tag ${{ steps.get-tag.outputs.tag_name }}
+          git push origin ${{ steps.get-tag.outputs.tag_name }}
+          
+      - name: Create_GitHub_Release
+        id: create-release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get-tag.outputs.tag_name }}
+          name: Release ${{ steps.get-tag.outputs.tag_name }}
+          draft: false
+          files: my_program.c
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
