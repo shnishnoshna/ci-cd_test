@@ -5,7 +5,6 @@ int main(void){
     puts("Write: x:y");
     scanf("%d: %d", &x, &y);
     printf("x + y = %d\n", x + y);
-    char temp;
-    scanf("Press key: %c", &temp);
+    getchar();
     return 0;
 }
