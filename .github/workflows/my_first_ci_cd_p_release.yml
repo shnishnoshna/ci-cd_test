@@ -26,8 +26,8 @@ jobs:
 
       - name: Create_new_tag_in_main
         run: |
-          git tag ${{ steps.get-tag.outputs.tag_name }}
-          git push origin ${{ steps.get-tag.outputs.tag_name }}
+          git tag -f ${{ steps.get-tag.outputs.tag_name }}
+          git push origin ${{ steps.get-tag.outputs.tag_name }} --force
           
       - name: Create_GitHub_Release
         id: create-release
