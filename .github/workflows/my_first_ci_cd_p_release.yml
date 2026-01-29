@@ -5,7 +5,8 @@ name: CI_CD_first_p_my_server
 on:
   pull_request:
     types: [closed]
-
+permissions:
+  contents: write
 jobs:
   on-successful-merge:
     # Этот job запустится ТОЛЬКО если PR был смержен
@@ -17,6 +18,7 @@ jobs:
         with:
           ref: develop
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get_latest_tag_from_develop
         id: get-tag
         run: |
